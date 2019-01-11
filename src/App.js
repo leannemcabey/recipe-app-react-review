@@ -42,14 +42,18 @@ class App extends Component {
     })
   }
 
-  addRecipe = (recipe) => {
+  addRecipe = (recipeId) => {
+    const recipe = this.state.recipes.find(r => r.idMeal === recipeId)
+
     this.setState({
       myRecipes: [...this.state.myRecipes, recipe],
       recipes: this.state.recipes.filter(r => r !== recipe)
     })
   }
 
-  removeRecipe = (recipe) => {
+  removeRecipe = (recipeId) => {
+    const recipe = this.state.myRecipes.find(r => r.idMeal === recipeId)
+
     this.setState({
       myRecipes: this.state.myRecipes.filter(r => r !== recipe),
       recipes: [...this.state.recipes, recipe]
