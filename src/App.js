@@ -42,18 +42,18 @@ class App extends Component {
     })
   }
 
-  updateRecipes = (recipe) => {
-    if (this.state.myRecipes.includes(recipe)) {
-      this.setState({
-        myRecipes: this.state.myRecipes.filter(r => r !== recipe),
-        recipes: [...this.state.recipes, recipe]
-      })
-    } else {
-      this.setState({
-        myRecipes: [...this.state.myRecipes, recipe],
-        recipes: this.state.recipes.filter(r => r !== recipe)
-      })
-    }
+  addRecipe = (recipe) => {
+    this.setState({
+      myRecipes: [...this.state.myRecipes, recipe],
+      recipes: this.state.recipes.filter(r => r !== recipe)
+    })
+  }
+
+  removeRecipe = (recipe) => {
+    this.setState({
+      myRecipes: this.state.myRecipes.filter(r => r !== recipe),
+      recipes: [...this.state.recipes, recipe]
+    })
   }
 
   render() {
@@ -74,7 +74,7 @@ class App extends Component {
             <h4>Recipes</h4>
             <RecipeContainer
               recipes={this.state.recipes}
-              updateRecipes={this.updateRecipes}
+              updateRecipes={this.addRecipe}
             />
           </Col>
 
@@ -82,7 +82,7 @@ class App extends Component {
             <h4>My Recipes</h4>
             <RecipeContainer
               recipes={this.state.myRecipes}
-              updateRecipes={this.updateRecipes}
+              updateRecipes={this.removeRecipe}
             />
           </Col>
         </Row>
