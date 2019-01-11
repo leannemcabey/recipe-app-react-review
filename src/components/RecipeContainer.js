@@ -5,7 +5,9 @@ import v4 from 'uuid' // another way of generating unique ids (useful for keys)
 class RecipeContainer extends React.Component {
   render() {
     return (
-      <div>{ /* render recipes here */ }</div>
+      <div>
+        {this.props.recipes.map(recipe => <Recipe key={v4()} recipe={recipe} handleRecipeClick={this.props.handleRecipeClick}/>)}
+      </div>
     )
   }
 }

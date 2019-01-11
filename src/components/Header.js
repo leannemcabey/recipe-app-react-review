@@ -9,7 +9,7 @@ class Header extends React.Component {
 
         <div className='container'>
           <h5>Filter by Category:</h5>
-          <input type='text' />
+        <input onChange={this.props.handleFilter} type='text' value={this.props.filterInput}/>
         </div>
       </Fragment>
     )
