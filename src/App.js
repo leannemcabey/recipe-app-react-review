@@ -47,7 +47,6 @@ class App extends Component {
 
     this.setState({
       myRecipes: [...this.state.myRecipes, recipe],
-      recipes: this.state.recipes.filter(r => r !== recipe)
     })
   }
 
@@ -56,7 +55,6 @@ class App extends Component {
 
     this.setState({
       myRecipes: this.state.myRecipes.filter(r => r !== recipe),
-      recipes: [...this.state.recipes, recipe]
     })
   }
 
