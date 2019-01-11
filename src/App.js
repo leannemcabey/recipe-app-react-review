@@ -28,8 +28,12 @@ class App extends Component {
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
     .then(r => r.json())
     .then(result => {
+      const filteredResults = result.meals.filter(recipe =>
+        !this.state.myRecipes.find(r => r.idMeal === recipe.idMeal)
+      )
+
       this.setState({
-        recipes: result.meals
+        recipes: filteredResults
       })
     })
   }
@@ -47,6 +51,7 @@ class App extends Component {
 
     this.setState({
       myRecipes: [...this.state.myRecipes, recipe],
+      recipes: this.state.recipes.filter(r => r !== recipe)
     })
   }
 
@@ -55,6 +60,7 @@ class App extends Component {
 
     this.setState({
       myRecipes: this.state.myRecipes.filter(r => r !== recipe),
+      recipes: [...this.state.recipes, recipe]
     })
   }
 
