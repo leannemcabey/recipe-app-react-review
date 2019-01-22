@@ -8,9 +8,9 @@ import Header from './components/Header'
 class App extends Component {
   state = {
     categories: [],
-    filteredCategories: [],
     recipes: [],
-    myRecipes: []
+    myRecipes: [],
+    search: ''
   }
 
   componentDidMount() {
@@ -38,11 +38,9 @@ class App extends Component {
     })
   }
 
-  filterCategories = (search) => {
+  handleSearch = (e) => {
     this.setState({
-      filteredCategories: this.state.categories.filter(c =>
-        c.strCategory.toLowerCase().includes(search.toLowerCase())
-      )
+      search: e.target.value
     })
   }
 
@@ -64,16 +62,20 @@ class App extends Component {
     })
   }
 
+  filteredCategories = () => {
+    return this.state.categories.filter(c => c.strCategory.toLowerCase().includes(this.state.search.toLowerCase()))
+  }
+
   render() {
     return (
       <div>
-        <Header filterCategories={this.filterCategories} />
+        <Header handleSearch={this.handleSearch} search={this.state.search} />
 
         <Row>
           <Col s={4} className='grid-example'>
             <h4>Categories</h4>
             <CategoryContainer
-              categories={this.state.filteredCategories}
+              categories={this.filteredCategories()}
               getRecipes={this.getRecipes}
             />
           </Col>
