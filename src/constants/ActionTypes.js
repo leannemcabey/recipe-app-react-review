@@ -1,0 +1,4 @@
+export const SET_CATEGORIES = 'SET_CATEGORIES'
+export const SET_RECIPES = 'SET_RECIPES'
+export const ADD_RECIPE = 'ADD_RECIPE'
+export const REMOVE_RECIPE = 'REMOVE_RECIPE'
