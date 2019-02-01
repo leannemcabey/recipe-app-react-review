@@ -1,9 +1,11 @@
 import {
-  SET_CATEGORIES
+  SET_CATEGORIES,
+  SEARCH_CATEGORIES
 } from '../constants/ActionTypes'
 
 const initialState = {
-  categories: []
+  categories: [],
+  search: ''
 }
 
 export default (state = initialState, action) => {
@@ -12,6 +14,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         categories: action.payload
+      }
+    case SEARCH_CATEGORIES:
+      return {
+        ...state,
+        search: action.payload
       }
     default:
       return state

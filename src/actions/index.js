@@ -27,3 +27,10 @@ export const removeRecipe = (recipe) => {
     payload: recipe
   }
 }
+
+export const searchCategories = (searchTerm) => {
+  return {
+    type: types.SEARCH_CATEGORIES,
+    payload: searchTerm
+  }
+}

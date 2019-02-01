@@ -5,38 +5,9 @@ import CategoryContainer from './components/CategoryContainer'
 import RecipeContainer from './components/RecipeContainer'
 import Header from './components/Header'
 import { connect } from 'react-redux'
-import { setCategories, setRecipes, addRecipe, removeRecipe } from './actions'
+import { addRecipe, removeRecipe } from './actions'
 
 class App extends Component {
-  state = {
-    search: ''
-  }
-
-  componentDidMount() {
-    fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
-    .then(r => r.json())
-    .then(result => {
-      this.props.setCategories(result.categories)
-    })
-  }
-
-  getRecipes = (category) => {
-    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
-    .then(r => r.json())
-    .then(result => {
-      const filteredResults = result.meals.filter(recipe =>
-        !this.props.myRecipes.find(r => r.idMeal === recipe.idMeal)
-      )
-
-      this.props.setRecipes(filteredResults)
-    })
-  }
-
-  handleSearch = (e) => {
-    this.setState({
-      search: e.target.value
-    })
-  }
 
   addRecipe = (recipeId) => {
     const recipe = this.props.recipes.find(r => r.idMeal === recipeId)
@@ -50,22 +21,15 @@ class App extends Component {
     this.props.removeRecipe(recipe)
   }
 
-  filteredCategories = () => {
-    return this.props.categories.filter(c => c.strCategory.toLowerCase().includes(this.state.search.toLowerCase()))
-  }
-
   render() {
     return (
       <div>
-        <Header handleSearch={this.handleSearch} search={this.state.search} />
+        <Header />
 
         <Row>
           <Col s={4} className='grid-example'>
             <h4>Categories</h4>
-            <CategoryContainer
-              categories={this.filteredCategories()}
-              getRecipes={this.getRecipes}
-            />
+            <CategoryContainer />
           </Col>
 
           <Col s={4} className='grid-example'>
@@ -91,7 +55,6 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    categories: state.category.categories,
     recipes: state.recipe.recipes,
     myRecipes: state.recipe.myRecipes
   }
@@ -99,8 +62,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCategories: (categories) => dispatch(setCategories(categories)),
-    setRecipes: (recipes) => dispatch(setRecipes(recipes)),
     addRecipe: (recipe) => dispatch(addRecipe(recipe)),
     removeRecipe: (recipe) => dispatch(removeRecipe(recipe))
   }

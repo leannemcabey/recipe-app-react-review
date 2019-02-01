@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
 import { Navbar } from 'react-materialize'
+import { connect } from 'react-redux'
+import { searchCategories } from '../actions'
 
 class Header extends React.Component {
   render() {
@@ -9,7 +11,11 @@ class Header extends React.Component {
 
         <div className='container'>
           <h5>Filter by Category:</h5>
-          <input type='text' onChange={this.props.handleSearch} value={this.props.search} />
+          <input 
+            type='text' 
+            onChange={(e) => this.props.searchCategories(e.target.value)} 
+            value={this.props.search} 
+          />
         </div>
       </Fragment>
     )
@@ -17,4 +23,16 @@ class Header extends React.Component {
 
 }
 
-export default Header
+const mapStateToProps = (state) => {
+  return {
+    search: state.category.search
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    searchCategories: (searchTerm) => dispatch(searchCategories(searchTerm))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
